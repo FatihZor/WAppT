@@ -1,14 +1,16 @@
 from flask import Flask, request, send_from_directory, render_template, redirect, url_for
 from models import Users
 import logging
+from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import current_user, login_required, LoginManager, login_user, logout_user
+
 log = logging.getLogger('werkzeug')
 log.setLevel(logging.ERROR)
 
 login_manager = LoginManager()
 app = Flask(__name__)
 login_manager.init_app(app)
-app.secret_key = '(p6*Ia0>.zJmKOnU&mN~/w(|V/)5YS'
+app.secret_key = 'secretkey'
 login_manager.login_view = 'login'
 
 
@@ -44,6 +46,13 @@ def register():
         p_username = request.form['username']
         p_password = request.form['password']
         p_email = request.form['email']
+        try:
+            user = Users()
+            user.name = p_name
+            user.email = p_email
+            user.username = p_username
+            user.password = generate_password_hash(p_password)
+        except:
         return redirect(url_for('index'))
     return True
 
