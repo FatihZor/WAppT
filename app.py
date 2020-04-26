@@ -1,8 +1,9 @@
-from flask import Flask, request, send_from_directory, render_template, redirect, url_for
+from flask import Flask, request, send_from_directory, render_template, redirect, url_for, flash
 from models import Users
 import logging
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import current_user, login_required, LoginManager, login_user, logout_user
+from mongoengine.errors import NotUniqueError
 
 log = logging.getLogger('werkzeug')
 log.setLevel(logging.ERROR)
@@ -13,6 +14,9 @@ login_manager.init_app(app)
 app.secret_key = 'secretkey'
 login_manager.login_view = 'login'
 
+@app.route('/<path:path>')
+def send_assets(path):
+    return send_from_directory('static', path)
 
 # LOGIN / LOGOUT >
 
@@ -27,14 +31,18 @@ def login():
     if request.method == 'GET':
         return render_template('login/login.html')
     elif request.method == 'POST':
-        p_username = request.form['username']
+        p_email = request.form['email']
         p_password = request.form['password']
-        user = Users.objects(username = p_username).first()
-        if user is None or not check_password_hash(user.password, p_password):
-            return redirect(url_for('login'))
-        else:
-            login_user(kullanici)
-            return redirect(url_for('index'))
+        try:
+            user = Users.objects(email = p_email).first()
+            if user is None or not check_password_hash(user.password, p_password):
+                flash("Username or password wrong")
+                return redirect(url_for('login'))
+            else:
+                login_user(user)
+                return redirect(url_for('index'))
+        except:
+            flash("Something went wrong")
     return True
 
 @app.route('/register', methods=['GET', 'POST'])
@@ -43,16 +51,19 @@ def register():
         return render_template('login/register.html')
     elif request.method == 'POST':
         p_name = request.form['name']
-        p_username = request.form['username']
         p_password = request.form['password']
         p_email = request.form['email']
         try:
             user = Users()
             user.name = p_name
             user.email = p_email
-            user.username = p_username
+            user.user_type = "Free"
             user.password = generate_password_hash(p_password)
-        except:
+            user.save()
+            login_user(user)
+        except NotUniqueError as e:
+            flash("E-Mail or Username is taken")
+            return redirect(url_for("register"))
         return redirect(url_for('index'))
     return True
 
@@ -72,6 +83,6 @@ def index():
 # APP RUN >
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', port=80, threaded=True)
+    app.run(host='0.0.0.0', port=80, threaded=True, debug = True)
 
 #APP RUN <
