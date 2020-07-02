@@ -1,8 +1,9 @@
 # WAppT - Web Application Tracking
 
-[![N|Solid](https://www.python.org/static/community_logos/python-powered-w-100x40.png)](https://www.python.org/psf-landing/)
+[![N|Solid](https://fuzati.com/wp-content/uploads/2016/12/Bootstrap-Logo.png)](https://getbootstrap.com/)
+[![N|Solid](https://cdn4.iconfinder.com/data/icons/scripting-and-programming-languages/512/JQuery_logo-512.png)](http://jquery.com)
 
-With WAppT, you can track the access status of web applications. You can also:
+With WAppT, you can track the access status of web applications. What you can do soon:
   - DNS Tracking
   - Word-based Tracking
   - Search-based Tracking
@@ -12,12 +13,8 @@ With WAppT, you can track the access status of web applications. You can also:
 
 WAppT uses a number of open source projects to work properly:
 
-* [Python] 
-* [Flask]
-* [Socket.IO]
-* [Notify.js]
+
 * [jQuery]
-* [startbootstrap-sb-admin-2]
 * [Bootstrap]
 
 License
@@ -29,11 +26,7 @@ Mozilla Public License 2.0
 **Free Software, Hell Yeah!**
 
 
-   [Python]: <https://www.python.org/r>
-   [Flask]: <https://flask.palletsprojects.com/en/1.1.x/>
-   [Socket.IO]: <https://socket.io/>
-   [Notify.js]: <https://notifyjs.jpillora.com/>
-   [startbootstrap-sb-admin-2]: <https://github.com/BlackrockDigital/startbootstrap-sb-admin-2>
+
    [Bootstrap]: <https://getbootstrap.com/>
    [jQuery]: <http://jquery.com>
 
