@@ -293,18 +293,21 @@
         var state;
         setInterval(() => {
             var table = $("#web-tb");
-            
             $('#web-tb tr').each(function () {
                 $(this).find('td').each(function () {
-                    console.log($(this).text())
                     if ($(this).text().includes("http")) {
                         var url = $(this).text()
                         try {
-                            $.get(url, function () {
-
+                            $.get(url, function (data, statusText, xhr) {
+                                if (xhr.status == 200) {
+                                    state = "Online";
+                                }
+                                else {
+                                    state = "Offline";
+                                }
                             })
                                 .done(function () {
-                                    state = "Online";
+
                                 })
                                 .fail(function () {
                                     state = "Offline";
@@ -312,7 +315,7 @@
                                 .always(function () {
 
                                 });
-                        } catch(err) { state = "Offline"; }
+                        } catch (err) { state = "Offline"; }
                     }
                     if ($(this).text().includes("Online") || $(this).text().includes("Offline") || $(this).text().includes("Waiting")) {
                         $(this).html(state)
