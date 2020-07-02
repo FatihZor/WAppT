@@ -1,6 +1,6 @@
 # WAppT - Web Application Tracking
 
-[![N|Solid](https://fuzati.com/wp-content/uploads/2016/12/Bootstrap-Logo.png)](https://getbootstrap.com/)[![N|Solid](https://cdn4.iconfinder.com/data/icons/scripting-and-programming-languages/512/JQuery_logo-512.png)](http://jquery.com)
+[![N|Solid](https://fuzati.com/wp-content/uploads/2016/12/Bootstrap-Logo.png =250x)](https://getbootstrap.com/)[![N|Solid](https://cdn4.iconfinder.com/data/icons/scripting-and-programming-languages/512/JQuery_logo-512.png =250x)](http://jquery.com)
 
 Demo: [https://fatihzor.github.io/WAppT/](https://fatihzor.github.io/WAppT/)
 
