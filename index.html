@@ -181,7 +181,7 @@
                                 <td><a href="https://fatihzor.github.io/">https://fatihzor.github.io/</a></td>
                                 <td><span class="label label-warning">Waiting</span></td>
                                 <td>
-                                   
+
                                 </td>
                             </tr>
 
@@ -298,7 +298,6 @@
             list = [order, name, link, 'Waiting', moment().format("LLL")]
             main_list.push(list)
         }
-
         var state;
         setInterval(() => {
             var table = $("#web-tb");
@@ -313,13 +312,11 @@
                         }
                     })
                         .done(function () {
-
                         })
                         .fail(function () {
                             element[3] = "Offline";
                         })
                         .always(function () {
-
                             element[4] = moment().format("LLL");
                         });
                 } catch (err) { element[3] = "Error"; }
@@ -331,8 +328,6 @@
                 $("table tbody").append(markup);
             });
         }, 10000);
-
-
     </script>
 </body>
 
