@@ -9,25 +9,21 @@ With WAppT, you can track the access status of web applications. What you can do
   - Word-based Tracking
   - Search-based Tracking
 
-
 ### Tech
 
 WAppT uses a number of open source projects to work properly:
 
-
 * [jQuery]
 * [Bootstrap]
+* [Moment.js]
 
 License
 ----
 
 Mozilla Public License 2.0
 
-
 **Free Software, Hell Yeah!**
-
-
 
    [Bootstrap]: <https://getbootstrap.com/>
    [jQuery]: <http://jquery.com>
-
+   [Moment.js]: <https://momentjs.com/>
