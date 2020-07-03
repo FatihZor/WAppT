@@ -277,6 +277,7 @@
         });
     </script> -->
     <script>
+        var main_list = [["1", "Fatih Zor", "https://fatihzor.github.io", "Online"]];
         function addWebApp() {
             var order = $("#order").val()
             var name = $("#webAppName").val()
@@ -287,41 +288,41 @@
             $("#order").val("")
             $("#webAppName").val("")
             $("#webAppLink").val("")
+            var list;
+            list = [order, name, link, 'Waiting']
+            main_list.push(list)
         }
-    </script>
-    <script>
+
         var state;
         setInterval(() => {
             var table = $("#web-tb");
-            $('#web-tb tr').each(function () {
-                $(this).find('td').each(function () {
-                    if ($(this).text().includes("http")) {
-                        var url = $(this).text()
-                        try {
-                            $.get(url, function (data, statusText, xhr) {
-                                if (xhr.status == 200) {
-                                    state = "Online";
-                                }
-                                else {
-                                    state = "Offline";
-                                }
-                            })
-                                .done(function () {
+            main_list.forEach(element => {
+                try {
+                    $.get(element[2], function (data, statusText, xhr) {
+                        if (xhr.status == 200) {
+                            element[3] = "Online";
+                        }
+                        else {
+                            element[3] = "Offline";
+                        }
+                    })
+                        .done(function () {
 
-                                })
-                                .fail(function () {
-                                    state = "Offline";
-                                })
-                                .always(function () {
+                        })
+                        .fail(function () {
+                            element[3] = "Offline";
+                        })
+                        .always(function () {
 
-                                });
-                        } catch (err) { state = "Offline"; }
-                    }
-                    if ($(this).text().includes("Online") || $(this).text().includes("Offline") || $(this).text().includes("Waiting")) {
-                        $(this).html(state)
-                    }
-                })
-            })
+                        });
+                } catch (err) { element[3] = "Error"; }
+            });
+            console.log(main_list)
+            $("table tbody").html("");
+            main_list.forEach(element => {
+                var markup = "<tr><td>" + element[0] + "</td><td>" + element[1] + '</td><td><a href="' + element[2] + '">' + element[2] + '</a></td><td><span class="label label-warning">' + element[3] + '</span></td></tr>'
+                $("table tbody").append(markup);
+            });
         }, 10000);
 
 
