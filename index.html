@@ -150,7 +150,6 @@
                     <h1 class="h2">Dashboard</h1>
                     <div class="btn-toolbar mb-2 mb-md-0">
                         <div class="btn-group mr-2">
-                            <!-- Button trigger modal -->
                             <button type="button" class="btn btn-primary" data-toggle="modal"
                                 data-target="#exampleModalCenter">
                                 <span data-feather="plus-square"></span> Add Web App
@@ -172,6 +171,7 @@
                                 <th>Name</th>
                                 <th>Link</th>
                                 <th>States</th>
+                                <th>Last Scan</th>
                             </tr>
                         </thead>
                         <tbody id="web1">
@@ -180,6 +180,9 @@
                                 <td>Fatih Zor</td>
                                 <td><a href="https://fatihzor.github.io/">https://fatihzor.github.io/</a></td>
                                 <td><span class="label label-warning">Waiting</span></td>
+                                <td>
+
+                                </td>
                             </tr>
 
                         </tbody>
@@ -276,8 +279,11 @@
             }
         });
     </script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.19.1/moment.min.js"
+        integrity="sha512-Dz4zO7p6MrF+VcOD6PUbA08hK1rv0hDv/wGuxSUjImaUYxRyK2gLC6eQWVqyDN9IM1X/kUA8zkykJS/gEVOd3w=="
+        crossorigin="anonymous"></script>
     <script>
-        var main_list = [["1", "Fatih Zor", "https://fatihzor.github.io", "Online"]];
+        var main_list = [["1", "Fatih Zor", "https://fatihzor.github.io", "Online", moment().format("LLL")]];
         function addWebApp() {
             var order = $("#order").val()
             var name = $("#webAppName").val()
@@ -289,10 +295,9 @@
             $("#webAppName").val("")
             $("#webAppLink").val("")
             var list;
-            list = [order, name, link, 'Waiting']
+            list = [order, name, link, 'Waiting', moment().format("LLL")]
             main_list.push(list)
         }
-
         var state;
         setInterval(() => {
             var table = $("#web-tb");
@@ -307,25 +312,22 @@
                         }
                     })
                         .done(function () {
-
                         })
                         .fail(function () {
                             element[3] = "Offline";
                         })
                         .always(function () {
-
+                            element[4] = moment().format("LLL");
                         });
                 } catch (err) { element[3] = "Error"; }
             });
             console.log(main_list)
             $("table tbody").html("");
             main_list.forEach(element => {
-                var markup = "<tr><td>" + element[0] + "</td><td>" + element[1] + '</td><td><a href="' + element[2] + '">' + element[2] + '</a></td><td><span class="label label-warning">' + element[3] + '</span></td></tr>'
+                var markup = "<tr><td>" + element[0] + "</td><td>" + element[1] + '</td><td><a href="' + element[2] + '">' + element[2] + '</a></td><td><span class="label label-warning">' + element[3] + '</span></td><td>' + element[4] + '</td></tr>'
                 $("table tbody").append(markup);
             });
         }, 10000);
-
-
     </script>
 </body>
 
